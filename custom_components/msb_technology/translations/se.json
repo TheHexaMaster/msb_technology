@@ -1,0 +1,80 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Inställningarna för anslutningen via modbus till inverter",
+        "data": {
+          "name": "Prefix för namnsättning av sensorerna på invertern",
+          "read_modbus_addr": "The modbus address of the inverter",
+          "interface" : "Interface",
+          "read_eps": "Emergency Power Option (EPS)",
+          "read_dcb": "Dry Contact Box (Gen4)",
+          "read_pm": "Parallel Mode (Master-Slave)",
+          "plugin": "Inverter Type",
+          "scan_interval": "Frekvensen, i sekunder, för uppdatering av data från modbus registren"
+        }
+      },
+      "serial": {
+        "title": "Serial Port Parameters",
+        "data": {
+          "read_serial_port": "Name of the serial port",
+          "baudrate": "Baudrate"
+        }
+      },
+      "tcp": {
+        "title": "TCP/IP Parameters",
+        "data": {
+          "host": "Ip-adressen för modbus-enheten på invertern",
+          "port": "TCP-port för anslutning till invertern"
+        }
+      }
+    },
+    "error": {
+      "already_configured": "Enheten är redan konfigurerad",
+      "name_already_used": "This name was already used or was invalid",
+      "invalid_host": "Invalid host IP address"
+    },
+    "abort": {
+      "already_configured": "Enheten är redan konfigurerad"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Inställningarna för anslutningen via modbus till inverter",
+        "data": {
+          "name": "Prefix för namnsättning av sensorerna på invertern",
+          "read_modbus_addr": "The modbus address of the inverter",
+          "interface" : "Interface",
+          "read_eps": "Emergency Power Option (EPS)",
+          "read_dcb": "Dry Contact Box (Gen4)",
+          "read_pm": "Parallel Mode (Master-Slave)",
+          "plugin": "Inverter Type",
+          "scan_interval": "Frekvensen, i sekunder, för uppdatering av data från modbus registren"
+        }
+      },
+      "serial": {
+        "title": "Serial Port Parameters",
+        "data": {
+          "read_serial_port": "Name of the serial port",
+          "baudrate": "Baudrate"
+        }
+      },
+      "tcp": {
+        "title": "TCP/IP Parameters",
+        "data": {
+          "host": "Ip-adressen för modbus-enheten på invertern",
+          "port": "TCP-port för anslutning till invertern"
+        }
+      }
+    },
+    "error": {
+      "already_configured": "Enheten är redan konfigurerad",
+      "name_already_used": "This name was already used or was invalid",
+      "invalid_host": "Invalid host IP address"
+    },
+    "abort": {
+      "already_configured": "Enheten är redan konfigurerad"
+    }
+  }
+}

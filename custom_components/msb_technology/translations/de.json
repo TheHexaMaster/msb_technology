@@ -1,0 +1,80 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Definiert die Wechselrichter Modbus-Verbindung",
+        "data": {
+          "name": "Das Präfix, das für die Wechselrichter Sensoren verwendet werden soll",
+          "read_modbus_addr": "Die Modbus Adresse des Wechselrichter Modbus Geräts",
+          "interface" : "Schnittstelle",
+          "read_eps": "Notstromschalter (EPS)",
+          "read_dcb": "Dry Contact Box (Gen4)",
+          "read_pm": "Parallel Mode (Master-Slave)",
+          "plugin": "Wechselrichjter Typ",
+          "scan_interval": "Die Abfragefrequenz der Modbus Register in Sekunden"
+        }
+      },
+      "serial": {
+        "title": "Serielle Schnittstelle",
+        "data": {
+          "read_serial_port": "Name ses seriellen Ports",
+          "baudrate": "Baudrate"
+        }
+      },
+      "tcp": {
+        "title": "TCP/IP Schnittstelle",
+        "data": {
+          "host": "Die IP Adresse des Wechselrichters oder Modbus Geräts",
+          "port": "Der TCP Port über den die Verbindung zum Wechselrichter hergestellt wird"
+        }
+      }
+    },
+    "error": {
+      "already_configured": "Gerät ist bereits konfiguriert",
+      "name_already_used": "Name war bereits vorhanden oder war ungültig",
+      "invalid_host": "IP Addresse invalid"
+    },
+    "abort": {
+      "already_configured": "Gerät ist bereits konfiguriert"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Definiert die Wechselrichter Modbus-Verbindung",
+        "data": {
+          "name": "Das Präfix, das für die Wechselrichter Sensoren verwendet werden soll",
+          "read_modbus_addr": "Die Modbus Adresse des Wechselrichter Modbus Geräts",
+          "interface" : "Schnittstelle",
+          "read_eps": "Notstromschalter (EPS)",
+          "read_dcb": "Dry Contact Box (Gen4)",
+          "read_pm": "Parallel Mode (Master-Slave)",
+          "plugin": "Wechselrichter Typ",
+          "scan_interval": "Die Abfragefrequenz der Modbus Register in Sekunden"
+        }
+      },
+      "serial": {
+        "title": "Serielle Schnittstelle",
+        "data": {
+          "read_serial_port": "Name ses seriellen Ports",
+          "baudrate": "Baudrate"
+        }
+      },
+      "tcp": {
+        "title": "TCP/IP Schnittstelle",
+        "data": {
+          "host": "Die IP Adresse des Wechselrichters oder Modbus Geräts",
+          "port": "Der TCP Port über den die Verbindung zum Wechselrichter hergestellt wird"
+        }
+      }
+    },
+    "error": {
+      "already_configured": "Gerät ist bereits konfiguriert",
+      "name_already_used": "Name war bereits vorhanden oder war ungültig",
+      "invalid_host": "IP Addresse invalid"
+    },
+    "abort": {
+      "already_configured": "Gerät ist bereits konfiguriert"
+    }
+  }
+}

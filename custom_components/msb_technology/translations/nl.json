@@ -1,0 +1,80 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Definieer uw inverter modbus-verbinding",
+        "data": {
+          "name": "Het voorvoegsel dat moet worden gebruikt voor uw Power-sensoren",
+          "read_modbus_addr": "Het modbus address van de Power-omvormer",
+          "interface" : "Interface",
+          "read_eps": "Noodstroom optie (EPS)",
+          "read_dcb": "Dry Contact Box (Gen4)",
+          "read_pm": "Parallel Mode (Master-Slave)",
+          "plugin": "Inverter Type",
+          "scan_interval": "De polling-frequentie van de modbus registratie in seconden"
+        }
+      },
+      "serial": {
+        "title": "Seriele Poort Parameters",
+        "data": {
+          "read_serial_port": "Naam van de seriele poort",
+          "baudrate": "Baudrate"
+        }
+      },
+      "tcp": {
+        "title": "TCP/IP Parameters",
+        "data": {
+          "host": "Het IP-address van uw inverter of modbus-tcp adapter",
+          "port": "De TCP port voor Inverter of Modbus adapter"
+        }
+      }
+    },
+    "error": {
+      "already_configured": "Apparaat is al geconfigureerd",
+      "name_already_used": "Naam was al in gebruik of was ongeldig",
+      "invalid_host": "Ongeldig host IP address"
+    },
+    "abort": {
+      "already_configured": "Apparaat is al geconfigureerd"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Definieer uw inverter modbus-verbinding",
+        "data": {
+          "name": "Het voorvoegsel dat moet worden gebruikt voor uw Power-sensoren",
+          "read_modbus_addr": "Het modbus address van de Power-omvormer",
+          "interface" : "Interface",
+          "read_eps": "Noodstroom Optie (EPS)",
+          "read_dcb": "Dry Contact Box (Gen4)",
+          "read_pm": "Parallel Mode (Master-Slave)",
+          "plugin": "Inverter Type",
+          "scan_interval": "De polling-frequentie van de modbus registratie in seconden"
+        }
+      },
+      "serial": {
+        "title": "Seriele Poort Parameters",
+        "data": {
+          "read_serial_port": "Naam van de seriele poort",
+          "baudrate": "Baudrate"
+        }
+      },
+      "tcp": {
+        "title": "TCP/IP Parameters",
+        "data": {
+          "host": "Het IP-address van uw inverter of modbus-tcp adapter",
+          "port": "De TCP port voor Inverter of Modbus adapter"
+        }
+      }
+    },
+    "error": {
+      "already_configured": "Apparaat is al geconfigureerd",
+      "name_already_used": "Naam was al in gebruik of was ongeldig",
+      "invalid_host": "Ongeldig host IP address"
+    },
+    "abort": {
+      "already_configured": "Apparaat is al geconfigureerd"
+    }
+  }
+}
