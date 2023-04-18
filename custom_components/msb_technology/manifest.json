@@ -1,10 +1,10 @@
 {
   "domain": "msb_technology",
   "name": "MSB Technology",
-  "codeowners": ["@HexaMaster"],
+  "codeowners": ["@TheHexaMaster"],
   "config_flow": true,
   "dependencies": [],
-  "documentation": "https://msb.sk",
+  "documentation": "https://github.com/TheHexaMaster/msb_technology/",
   "integration_type": "hub",
   "iot_class": "local_polling",
   "issue_tracker": "https://msb.sk",
