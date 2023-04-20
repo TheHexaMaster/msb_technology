@@ -30,7 +30,7 @@ async def async_setup_entry(hass, entry, async_add_entities) -> None:
             for (prefix, value,) in number_info.read_scale_exceptions: 
                 if hub.seriesnumber.startswith(prefix): readscale = value
         if plugin.matchInverterWithMask(hub._invertertype,number_info.allowedtypes, hub.seriesnumber ,number_info.blacklist):
-            number = SolaXModbusNumber( hub_name, hub, modbus_addr, device_info, number_info, readscale)
+            number = MSBModbusNumber( hub_name, hub, modbus_addr, device_info, number_info, readscale)
             if number_info.write_method==WRITE_DATA_LOCAL: 
                 #if (number_info.initvalue) != None: hub.data[number_info.key] = number_info.initvalue
                 hub.writeLocals[number_info.key] = number_info
@@ -39,8 +39,8 @@ async def async_setup_entry(hass, entry, async_add_entities) -> None:
     async_add_entities(entities)
     return True
 
-class SolaXModbusNumber(NumberEntity):
-    """Representation of an SolaX Modbus number."""
+class MSBModbusNumber(NumberEntity):
+    """Representation of an MSB number."""
 
     def __init__(self,
                  platform_name,
@@ -78,10 +78,10 @@ class SolaXModbusNumber(NumberEntity):
 
     async def async_added_to_hass(self) -> None:
         """Register callbacks."""
-        self._hub.async_add_solax_modbus_sensor(self._modbus_data_updated)
+        self._hub.async_add_msb_technology_sensor(self._modbus_data_updated)
 
     async def async_will_remove_from_hass(self) -> None:
-        self._hub.async_remove_solax_modbus_sensor(self._modbus_data_updated)
+        self._hub.async_remove_msb_technology_sensor(self._modbus_data_updated)
     
     """ remove duplicate declaration
     async def async_set_value(self, native_value: float) -> None:

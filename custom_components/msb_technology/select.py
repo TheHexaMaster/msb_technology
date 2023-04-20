@@ -25,7 +25,7 @@ async def async_setup_entry(hass, entry, async_add_entities) -> None:
     entities = []
     for select_info in plugin.SELECT_TYPES:
         if plugin.matchInverterWithMask(hub._invertertype, select_info.allowedtypes, hub.seriesnumber , select_info.blacklist):
-            select = SolaXModbusSelect(hub_name, hub, modbus_addr, device_info, select_info)
+            select = MSBModbusSelect(hub_name, hub, modbus_addr, device_info, select_info)
             if select_info.write_method==WRITE_DATA_LOCAL: 
                 if (select_info.initvalue != None): hub.data[select_info.key] = select_info.initvalue
                 hub.writeLocals[select_info.key] = select_info
@@ -41,8 +41,8 @@ def get_payload(my_dict, search):
             return k
     return None
 
-class SolaXModbusSelect(SelectEntity):
-    """Representation of an SolaX Modbus select."""
+class MSBModbusSelect(SelectEntity):
+    """Representation of an MSB select."""
 
     def __init__(self,
                  platform_name,
@@ -66,10 +66,10 @@ class SolaXModbusSelect(SelectEntity):
 
     async def async_added_to_hass(self):
         """Register callbacks."""
-        self._hub.async_add_solax_modbus_sensor(self._modbus_data_updated)
+        self._hub.async_add_msb_technology_sensor(self._modbus_data_updated)
 
     async def async_will_remove_from_hass(self) -> None:
-        self._hub.async_remove_solax_modbus_sensor(self._modbus_data_updated)
+        self._hub.async_remove_msb_technology_sensor(self._modbus_data_updated)
 
     @callback
     def _modbus_data_updated(self):

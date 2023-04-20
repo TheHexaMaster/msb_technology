@@ -33,8 +33,8 @@ from homeassistant.const import (
 
 # ================================= Definitions for config_flow ==========================================================
 
-DOMAIN = "solax_modbus"
-DEFAULT_NAME = "MSB"
+DOMAIN = "msb_technology"
+DEFAULT_NAME = "Inverter"
 DEFAULT_SCAN_INTERVAL = 15
 DEFAULT_PORT = 502
 DEFAULT_MODBUS_ADDR = 1
@@ -43,10 +43,10 @@ CONF_READ_SCN    = "read_scn"
 CONF_MODBUS_ADDR = "read_modbus_addr"
 CONF_INTERFACE   = "interface"
 CONF_SERIAL_PORT = "read_serial_port"
-CONF_SolaX_HUB   = "solax_hub"
+CONF_MSB_HUB     = "msb_hub"
 CONF_BAUDRATE    = "baudrate"
 CONF_PLUGIN      = "plugin"
-ATTR_MANUFACTURER = "SolaX Power"
+ATTR_MANUFACTURER = "MSB Technology"
 DEFAULT_INTERFACE  = "tcp"
 DEFAULT_SERIAL_PORT = "/dev/ttyUSB0"
 DEFAULT_READ_PRM = False

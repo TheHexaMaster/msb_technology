@@ -1,4 +1,3 @@
-"""The SolaX Modbus Integration."""
 import asyncio
 import logging
 import threading
@@ -66,9 +65,9 @@ async def config_entry_update_listener(hass: HomeAssistant, entry: ConfigEntry) 
 
 
 async def async_setup(hass, config):
-    """Set up the SolaX modbus component."""
+    """Set up the MSB component."""
     hass.data[DOMAIN] = {}
-    _LOGGER.debug("solax data %d", hass.data)
+    _LOGGER.debug("MSB data %d", hass.data)
     return True
 
 # Example migration function
@@ -85,7 +84,7 @@ async def async_migrate_entry(hass, config_entry: ConfigEntry):
 
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
-    """Set up a SolaX mobus."""
+    """Set up a MSB."""
     _LOGGER.debug(f"setup entries - data: {entry.data}, options: {entry.options}")
     config = entry.options
     name = config[CONF_NAME] 
@@ -102,7 +101,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
 
     # ================== dynamically load desired plugin =======================================================
     _LOGGER.info(f"trying to load plugin - plugin_name: {plugin_name}")
-    plugin = importlib.import_module(f".plugin_{plugin_name}", 'custom_components.solax_modbus') 
+    plugin = importlib.import_module(f".plugin_{plugin_name}", 'custom_components.msb_technology') 
     if not plugin: _LOGGER.error(f"could not import plugin with name: {plugin_name}")
     # ====================== end of dynamic load ==============================================================
 
@@ -111,7 +110,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
     modbus_addr = config.get(CONF_MODBUS_ADDR, DEFAULT_MODBUS_ADDR)
     if modbus_addr == None: 
         modbus_addr = DEFAULT_MODBUS_ADDR
-        _LOGGER.warning(f"{name} integration may need to be reconfigured for this version; using default Solax modbus_address {modbus_addr}")
+        _LOGGER.warning(f"{name} integration may need to be reconfigured for this version; using default modbus_address {modbus_addr}")
     interface = config.get(CONF_INTERFACE, None)
     if not interface: # legacy parameter name was read_serial, this block can be removed later
         if config.get("read_serial", False): interface = "serial"
@@ -120,9 +119,9 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
     baudrate = int(config.get(CONF_BAUDRATE, DEFAULT_BAUDRATE))
     scan_interval = config[CONF_SCAN_INTERVAL]
     _LOGGER.debug(f"Setup {DOMAIN}.{name}")
-    _LOGGER.debug(f"solax serial port {serial_port} interface {interface}")
+    _LOGGER.debug(f"MSB serial port {serial_port} interface {interface}")
 
-    hub = SolaXModbusHub(hass, name, host, port, modbus_addr, interface, serial_port, baudrate, scan_interval, plugin, config)
+    hub = MSBModbusHub(hass, name, host, port, modbus_addr, interface, serial_port, baudrate, scan_interval, plugin, config)
     """Register the hub."""
     hass.data[DOMAIN][name] = { "hub": hub,  }
 
@@ -135,7 +134,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
 
 
 async def async_unload_entry(hass, entry):
-    """Unload SolaX mobus entry."""
+    """Unload entry."""
     unload_ok = all(
         await asyncio.gather(
             *[
@@ -158,7 +157,7 @@ def Gen4Timestring(numb):
     m = numb >> 8
     return f"{h:02d}:{m:02d}"
 
-class SolaXModbusHub:
+class MSBModbusHub:
     """Thread safe wrapper class for pymodbus."""
 
     def __init__(
@@ -176,7 +175,7 @@ class SolaXModbusHub:
         config
     ):
         """Initialize the Modbus hub."""
-        _LOGGER.debug(f"solax modbushub creation with interface {interface} baudrate (only for serial): {baudrate}")
+        _LOGGER.debug(f"MSB modbushub creation with interface {interface} baudrate (only for serial): {baudrate}")
         self._hass = hass
         if (interface == "serial"): 
             self._client = ModbusSerialClient(method="rtu", port=serial_port, baudrate=baudrate, parity='N', stopbits=1, bytesize=8, timeout=3)
@@ -210,7 +209,7 @@ class SolaXModbusHub:
         self._lastts = 0  # timestamp of last polling cycle
         self.localsUpdated = False
         self.localsLoaded = False
-        _LOGGER.debug("solax modbushub done %s", self.__dict__)
+        _LOGGER.debug("MSB modbushub done %s", self.__dict__)
 
 
     # save and load local data entity values to make them persistent
@@ -237,7 +236,7 @@ class SolaXModbusHub:
     # end of save and load section
 
     @callback
-    def async_add_solax_modbus_sensor(self, update_callback):
+    def async_add_msb_technology_sensor(self, update_callback):
         """Listen for data updates."""
         # This is the first sensor, set up interval.
         if not self._sensors:
@@ -249,7 +248,7 @@ class SolaXModbusHub:
         self._sensors.append(update_callback)
 
     @callback
-    def async_remove_solax_modbus_sensor(self, update_callback):
+    def async_remove_msb_technology_sensor(self, update_callback):
         """Remove data update."""
         self._sensors.remove(update_callback)
 

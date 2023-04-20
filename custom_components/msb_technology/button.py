@@ -28,7 +28,7 @@ async def async_setup_entry(hass, entry, async_add_entities) -> None:
     entities = []
     for button_info in plugin.BUTTON_TYPES:
         if plugin.matchInverterWithMask(hub._invertertype, button_info.allowedtypes, hub.seriesnumber, button_info.blacklist):
-            button = SolaXModbusButton( hub_name, hub, modbus_addr, device_info, button_info )
+            button = MSBModbusButton( hub_name, hub, modbus_addr, device_info, button_info )
             entities.append(button)
             if button_info.key == plugin.wakeupButton(): hub.wakeupButton = button_info
             if button_info.value_function: hub.computedButtons[button_info.key] = button_info
@@ -37,8 +37,8 @@ async def async_setup_entry(hass, entry, async_add_entities) -> None:
     _LOGGER.info(f"hub.wakeuButton: {hub.wakeupButton}")
     return True
 
-class SolaXModbusButton(ButtonEntity):
-    """Representation of an SolaX Modbus button."""
+class MSBModbusButton(ButtonEntity):
+    """Representation of an MSB button."""
 
     def __init__(self,
                  platform_name,
