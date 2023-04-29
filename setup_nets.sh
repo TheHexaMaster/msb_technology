@@ -1,5 +1,5 @@
 #!/bin/bash
-sudo mv /etc/netplan/*.yaml  /etc/netplan/01-netcfg.yaml
+sudo rm -v /etc/netplan/*
 echo 'network: \
   version: 2 \
   renderer: networkd \
