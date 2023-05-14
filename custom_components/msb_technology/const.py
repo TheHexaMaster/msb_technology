@@ -47,10 +47,10 @@ CONF_MSB_HUB     = "msb_hub"
 CONF_BAUDRATE    = "baudrate"
 CONF_PLUGIN      = "plugin"
 ATTR_MANUFACTURER = "MSB Technology"
-DEFAULT_INTERFACE  = "tcp"
+DEFAULT_INTERFACE = "tcp"
 DEFAULT_SERIAL_PORT = "/dev/ttyUSB0"
-DEFAULT_READ_PRM = False
-DEFAULT_READ_SCN = False
+DEFAULT_READ_PRM = "PRM"
+DEFAULT_READ_SCN = "LI"
 DEFAULT_BAUDRATE = "9600"
 DEFAULT_PLUGIN        = "msb"
 PLUGIN_PATH = f"{pathlib.Path(__file__).parent.absolute()}/plugin_*.py"
@@ -253,6 +253,16 @@ def value_function_sync_rtc_ymd(initval, descr, datadict):
              (REGISTER_U16, now.second, ),
            ]
 
+def value_function_sync_rtc_ymd_fullyear(initval, descr, datadict):
+    now = datetime.now()
+    return [ (REGISTER_U16, now.year, ),
+             (REGISTER_U16, now.month, ),
+             (REGISTER_U16, now.day, ),
+             (REGISTER_U16, now.hour, ),
+             (REGISTER_U16, now.minute, ),
+             (REGISTER_U16, now.second, ),
+           ]
+
 def value_function_rtc(initval, descr, datadict):
     try:
         (rtc_seconds, rtc_minutes, rtc_hours, rtc_days, rtc_months, rtc_years, ) = initval
@@ -265,6 +275,13 @@ def value_function_rtc_ymd(initval, descr, datadict):
         (rtc_years, rtc_months, rtc_days, rtc_hours, rtc_minutes, rtc_seconds, ) = initval
         val = f"{rtc_days:02}/{rtc_months:02}/{rtc_years:02} {rtc_hours:02}:{rtc_minutes:02}:{rtc_seconds:02}"
         return datetime.strptime(val, '%d/%m/%y %H:%M:%S')
+    except: pass
+
+def value_function_rtc_ymd_fullyear(initval, descr, datadict):
+    try:
+        (rtc_years, rtc_months, rtc_days, rtc_hours, rtc_minutes, rtc_seconds, ) = initval
+        val = f"{rtc_days:02}/{rtc_months:02}/{rtc_years:04} {rtc_hours:02}:{rtc_minutes:02}:{rtc_seconds:02}"
+        return datetime.strptime(val, '%d/%m/%Y %H:%M:%S')
     except: pass
 
 def value_function_gen4time(initval, descr, datadict):

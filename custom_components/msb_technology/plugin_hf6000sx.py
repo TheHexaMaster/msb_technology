@@ -28,20 +28,20 @@ SENSOR_TYPES = []
 # =================================================================================================
 
 @dataclass
-class Lf3000sModbusButtonEntityDescription(BaseModbusButtonEntityDescription):
+class Hf6000sxModbusButtonEntityDescription(BaseModbusButtonEntityDescription):
     allowedtypes: int = ALLDEFAULT # maybe 0x0000 (nothing) is a better default choice
 
 @dataclass
-class Lf3000sModbusNumberEntityDescription(BaseModbusNumberEntityDescription):
+class Hf6000sxModbusNumberEntityDescription(BaseModbusNumberEntityDescription):
     allowedtypes: int = ALLDEFAULT # maybe 0x0000 (nothing) is a better default choice
 
 @dataclass
-class Lf3000sModbusSelectEntityDescription(BaseModbusSelectEntityDescription):
+class Hf6000sxModbusSelectEntityDescription(BaseModbusSelectEntityDescription):
     allowedtypes: int = ALLDEFAULT # maybe 0x0000 (nothing) is a better default choice
 
 @dataclass
-class Lf3000sModbusSensorEntityDescription(BaseModbusSensorEntityDescription):
-    """A class that describes Lf3000s Modbus sensor entities."""
+class Hf6000sxModbusSensorEntityDescription(BaseModbusSensorEntityDescription):
+    """A class that describes Hf6000sx Modbus sensor entities."""
     allowedtypes: int = ALLDEFAULT # maybe 0x0000 (nothing) is a better default choice
     order16: int = Endian.Big
     order32: int = Endian.Big
@@ -69,46 +69,58 @@ def value_function_today_solar_energy(initval, descr, datadict):
 
 BUTTON_TYPES = [
 
-    Lf3000sModbusButtonEntityDescription(
+    Hf6000sxModbusButtonEntityDescription(
         name = "AC-OUT Turn ON",
         key = "ac_out_on",
         register = 0,
         command = 0,
-        allowedtypes = PRM,
         icon = "mdi:power-plug-outline",
     ),
-    Lf3000sModbusButtonEntityDescription(
+    Hf6000sxModbusButtonEntityDescription(
         name = "AC-OUT Turn OFF",
         key = "ac_out_off",
         register = 0,
         command = 256,
-        allowedtypes = PRM,
         icon = "mdi:power-plug-off-outline",
     ),
-    Lf3000sModbusButtonEntityDescription(
+    Hf6000sxModbusButtonEntityDescription(
         name = "Buzzer Alarm ON",
         key = "buzzer_alarm_on",
         register = 22,
         command = 1,
         icon = "mdi:alarm-bell",
     ),
-    Lf3000sModbusButtonEntityDescription(
+    Hf6000sxModbusButtonEntityDescription(
         name = "Buzzer Alarm OFF",
         key = "buzzer_alarm_off",
         register = 22,
         command = 0,
         icon = "mdi:alarm-bell",
     ),
-    Lf3000sModbusButtonEntityDescription( 
+    Hf6000sxModbusButtonEntityDescription(
+        name = "System Alarm ON",
+        key = "system_alarm_on",
+        register = 107,
+        command = 1,
+        icon = "mdi:alarm-bell",
+    ),
+    Hf6000sxModbusButtonEntityDescription(
+        name = "System Alarm OFF",
+        key = "system_alarm_off",
+        register = 107,
+        command = 0,
+        icon = "mdi:alarm-bell",
+    ),
+    Hf6000sxModbusButtonEntityDescription( 
         name = "RTC Synchronisation",
         key = "sync_rtc",
         register = 45,
         write_method = WRITE_MULTI_MODBUS,
         icon = "mdi:home-clock",
-        value_function = value_function_sync_rtc_ymd,
+        value_function = value_function_sync_rtc_ymd_fullyear,
         allowedtypes = PRM,
     ),
-    Lf3000sModbusButtonEntityDescription( 
+    Hf6000sxModbusButtonEntityDescription( 
         name = "Reset USER Info",
         key = "reset_user_info",
         register = 32,
@@ -116,7 +128,7 @@ BUTTON_TYPES = [
         icon = "mdi:restart",
         entity_registry_enabled_default = False,
     ),
-    Lf3000sModbusButtonEntityDescription( 
+    Hf6000sxModbusButtonEntityDescription( 
         name = "Reset to FACTORY",
         key = "reset_factory",
         register = 33,
@@ -124,14 +136,14 @@ BUTTON_TYPES = [
         icon = "mdi:restart",
         entity_registry_enabled_default = False,
     ),
-    Lf3000sModbusButtonEntityDescription(
+    Hf6000sxModbusButtonEntityDescription(
         name = "Backlight ON",
         key = "backlight_on",
         register = 104,
         command = 1,
         icon = "mdi:lightbulb-on-outline",
     ),
-    Lf3000sModbusButtonEntityDescription(
+    Hf6000sxModbusButtonEntityDescription(
         name = "Backlight OFF",
         key = "backlight_off",
         register = 104,
@@ -156,7 +168,7 @@ NUMBER_TYPES = [
     #
     ###
 
-    Lf3000sModbusNumberEntityDescription(
+    Hf6000sxModbusNumberEntityDescription(
         name = "Max Battery Charge Current",
         key = "battery_max_charge_current",
         register = 34,
@@ -167,11 +179,10 @@ NUMBER_TYPES = [
         scale = 1,
         native_unit_of_measurement = UnitOfElectricCurrent.AMPERE,
         device_class = NumberDeviceClass.CURRENT,
-        allowedtypes = PRM,
         icon = "mdi:current-dc",
         entity_category = EntityCategory.CONFIG,
     ),
-    Lf3000sModbusNumberEntityDescription(
+    Hf6000sxModbusNumberEntityDescription(
         name = "Bulk Charge Voltage",
         key = "bulk_charge_voltage",
         register = 35,
@@ -186,7 +197,7 @@ NUMBER_TYPES = [
         icon = "mdi:flash-triangle",
         entity_category = EntityCategory.CONFIG,
     ),
-    Lf3000sModbusNumberEntityDescription(
+    Hf6000sxModbusNumberEntityDescription(
         name = "Float Charge Voltage",
         key = "float_charge_voltage",
         register = 36,
@@ -201,9 +212,9 @@ NUMBER_TYPES = [
         icon = "mdi:flash-triangle",
         entity_category = EntityCategory.CONFIG,
     ),
-    Lf3000sModbusNumberEntityDescription(
+    Hf6000sxModbusNumberEntityDescription(
         name = "Battery Voltage to Utility",
-        key = "battery_voltage_utility",
+        key = "battery_volper_utility",
         register = 37,
         fmt = "f",
         native_unit_of_measurement = UnitOfElectricPotential.VOLT,
@@ -212,13 +223,13 @@ NUMBER_TYPES = [
         native_max_value = 64,
         native_step = 0.1,
         scale = 0.1,
-        allowedtypes = PRM,
+        allowedtypes = PRM | AGM,
         icon = "mdi:flash-triangle",
         entity_category = EntityCategory.CONFIG,
     ),
-    Lf3000sModbusNumberEntityDescription(
+    Hf6000sxModbusNumberEntityDescription(
         name = "Battery Percent to Utility",
-        key = "battery_percent_utility",
+        key = "battery_volper_utility",
         register = 37,
         fmt = "f",
         native_unit_of_measurement = PERCENTAGE,
@@ -226,28 +237,27 @@ NUMBER_TYPES = [
         native_max_value = 100,
         native_step = 1,
         scale = 0.1,
-        allowedtypes = PRM | SCN,
+        allowedtypes = PRM | LI,
         icon = "mdi:flash-triangle",
         entity_category = EntityCategory.CONFIG,
     ),
-    Lf3000sModbusNumberEntityDescription(
+    Hf6000sxModbusNumberEntityDescription(
         name = "Max AC Charge Current",
         key = "ac_max_charge_current",
         register = 38,
         fmt = "i",
         native_min_value = 0,
-        native_max_value = 40,
+        native_max_value = 60,
         native_step = 1,
         scale = 1,
         native_unit_of_measurement = UnitOfElectricCurrent.AMPERE,
         device_class = NumberDeviceClass.CURRENT,
-        allowedtypes = PRM,
         icon = "mdi:current-dc",
         entity_category = EntityCategory.CONFIG,
     ),
-    Lf3000sModbusNumberEntityDescription(
+    Hf6000sxModbusNumberEntityDescription(
         name = "Battery CUTOFF Voltage",
-        key = "battery_cutoff_voltage",
+        key = "battery_cutoff_volper",
         register = 82,
         fmt = "f",
         native_unit_of_measurement = UnitOfElectricPotential.VOLT,
@@ -256,13 +266,13 @@ NUMBER_TYPES = [
         native_max_value = 64,
         native_step = 0.1,
         scale = 0.1,
-        allowedtypes = PRM,
+        allowedtypes = PRM | AGM,
         icon = "mdi:flash-triangle",
         entity_category = EntityCategory.CONFIG,
     ),
-    Lf3000sModbusNumberEntityDescription(
+    Hf6000sxModbusNumberEntityDescription(
         name = "Battery CUTOFF Percent",
-        key = "battery_cutoff_percent",
+        key = "battery_cutoff_volper",
         register = 82,
         fmt = "f",
         native_unit_of_measurement = PERCENTAGE,
@@ -270,13 +280,13 @@ NUMBER_TYPES = [
         native_max_value = 100,
         native_step = 1,
         scale = 0.1,
-        allowedtypes = PRM | SCN,
+        allowedtypes = PRM | LI,
         icon = "mdi:flash-triangle",
         entity_category = EntityCategory.CONFIG,
     ),
-    Lf3000sModbusNumberEntityDescription(
+    Hf6000sxModbusNumberEntityDescription(
         name = "Battery Recovery Voltage",
-        key = "battery_recovery_voltage",
+        key = "battery_recovery_volper",
         register = 95,
         fmt = "f",
         native_unit_of_measurement = UnitOfElectricPotential.VOLT,
@@ -285,13 +295,13 @@ NUMBER_TYPES = [
         native_max_value = 64,
         native_step = 0.1,
         scale = 0.1,
-        allowedtypes = PRM,
+        allowedtypes = PRM | AGM,
         icon = "mdi:flash-triangle",
         entity_category = EntityCategory.CONFIG,
     ),
-    Lf3000sModbusNumberEntityDescription(
+    Hf6000sxModbusNumberEntityDescription(
         name = "Battery Recovery Percent",
-        key = "battery_recovery_percent",
+        key = "battery_recovery_volper",
         register = 95,
         fmt = "f",
         native_unit_of_measurement = PERCENTAGE,
@@ -299,7 +309,7 @@ NUMBER_TYPES = [
         native_max_value = 100,
         native_step = 1,
         scale = 0.1,
-        allowedtypes = PRM | SCN,
+        allowedtypes = PRM | LI,
         icon = "mdi:flash-triangle",
         entity_category = EntityCategory.CONFIG,
     ),
@@ -312,7 +322,7 @@ NUMBER_TYPES = [
 
 SELECT_TYPES = [
 
-    Lf3000sModbusSelectEntityDescription(
+    Hf6000sxModbusSelectEntityDescription(
         name = "Battery Type Select",
         key = "battery_type",
         register = 39,
@@ -324,28 +334,30 @@ SELECT_TYPES = [
         allowedtypes = PRM,
         entity_category = EntityCategory.CONFIG,
     ),
-    Lf3000sModbusSelectEntityDescription(
+    Hf6000sxModbusSelectEntityDescription(
         name = "Battery Protocol Select",
         key = "battery_protocol",
         register = 106,
-        option_dict = { 1: "L01 - Growatt RS485",
+        option_dict = { 0: "BMS Disabled",
+                        1: "L01 - Growatt RS485",
                         2: "L02 - Pylontech RS485",
                         4: "L04 - Extented RS485",
                         51: "L51 - Growatt CAN",
                         52: "L52 - Pylontech CAN", },
-        allowedtypes = PRM,
+        allowedtypes = PRM | LI,
         entity_category = EntityCategory.CONFIG,
     ),
-    Lf3000sModbusSelectEntityDescription(
+    Hf6000sxModbusSelectEntityDescription(
         name = "AC Input Mode Select",
         key = "ac_input_mode",
         register = 8,
         option_dict = { 0: "APL - 90-280 VAC",
-                        1: "UPS - 170-280 VAC", },
+                        1: "UPS - 170-280 VAC", 
+                        2: "GEN - Generator", },
         allowedtypes = PRM,
         entity_category = EntityCategory.CONFIG,
     ),
-    Lf3000sModbusSelectEntityDescription(
+    Hf6000sxModbusSelectEntityDescription(
         name = "AC Output Priority Select",
         key = "ac_output_priority",
         register = 1,
@@ -356,7 +368,7 @@ SELECT_TYPES = [
         allowedtypes = PRM,
         entity_category = EntityCategory.CONFIG,
     ),
-    Lf3000sModbusSelectEntityDescription(
+    Hf6000sxModbusSelectEntityDescription(
         name = "Charge Source Priority Select",
         key = "charge_source_priority",
         register = 2,
@@ -366,7 +378,7 @@ SELECT_TYPES = [
         allowedtypes = PRM,
         entity_category = EntityCategory.CONFIG,
     ),
-    Lf3000sModbusSelectEntityDescription(
+    Hf6000sxModbusSelectEntityDescription(
         name = "AC Output Voltage Select",
         key = "ac_output_voltage",
         register = 18,
@@ -377,7 +389,7 @@ SELECT_TYPES = [
         allowedtypes = PRM,
         entity_category = EntityCategory.CONFIG,
     ),
-    Lf3000sModbusSelectEntityDescription(
+    Hf6000sxModbusSelectEntityDescription(
         name = "AC Output Frequency Select",
         key = "ac_output_frequency",
         register = 19,
@@ -386,7 +398,7 @@ SELECT_TYPES = [
         allowedtypes = PRM,
         entity_category = EntityCategory.CONFIG,
     ),
-    Lf3000sModbusSelectEntityDescription(
+    Hf6000sxModbusSelectEntityDescription(
         name = "Overload Restart Select",
         key = "overload_restart",
         register = 20,
@@ -396,7 +408,7 @@ SELECT_TYPES = [
         allowedtypes = PRM,
         entity_category = EntityCategory.CONFIG,
     ),
-    Lf3000sModbusSelectEntityDescription(
+    Hf6000sxModbusSelectEntityDescription(
         name = "Overtemperature Restart",
         key = "overtemperature_restart",
         register = 21,
@@ -410,8 +422,8 @@ SELECT_TYPES = [
 
 # ================================= Sennsor Declarations ============================================================
 
-SENSOR_TYPES: list[Lf3000sModbusSensorEntityDescription] = [
-    Lf3000sModbusSensorEntityDescription(
+SENSOR_TYPES: list[Hf6000sxModbusSensorEntityDescription] = [
+    Hf6000sxModbusSensorEntityDescription(
         name = "Firmware Version",
         key = "firmware_version",
         register = 9,
@@ -420,7 +432,7 @@ SENSOR_TYPES: list[Lf3000sModbusSensorEntityDescription] = [
         entity_category = EntityCategory.DIAGNOSTIC,
         icon = "mdi:information",
     ),
-    Lf3000sModbusSensorEntityDescription(
+    Hf6000sxModbusSensorEntityDescription(
         name = "Firmware Control Version",
         key = "firmware_control_version",
         register = 12,
@@ -429,7 +441,7 @@ SENSOR_TYPES: list[Lf3000sModbusSensorEntityDescription] = [
         entity_category = EntityCategory.DIAGNOSTIC,
         icon = "mdi:information",
     ),
-    Lf3000sModbusSensorEntityDescription(
+    Hf6000sxModbusSensorEntityDescription(
         name = "Serial Number",
         key = "serial_number",
         register = 23,
@@ -438,17 +450,17 @@ SENSOR_TYPES: list[Lf3000sModbusSensorEntityDescription] = [
         entity_category = EntityCategory.DIAGNOSTIC,
         icon = "mdi:information",
     ),
-    Lf3000sModbusSensorEntityDescription(
+    Hf6000sxModbusSensorEntityDescription(
         name = "Device RTC Clock",
         key = "device_rtc_clock",
         register = 45,
         unit = REGISTER_WORDS,
         wordcount = 6,
-        scale = value_function_rtc_ymd,
+        scale = value_function_rtc_ymd_fullyear,
         entity_category = EntityCategory.DIAGNOSTIC,
         icon = "mdi:clock",
     ),
-    Lf3000sModbusSensorEntityDescription(
+    Hf6000sxModbusSensorEntityDescription(
         name = "Battery Type",
         key = "battery_type",
         register = 39,
@@ -460,30 +472,33 @@ SENSOR_TYPES: list[Lf3000sModbusSensorEntityDescription] = [
         entity_category = EntityCategory.DIAGNOSTIC,
         icon = "mdi:battery",
     ),
-    Lf3000sModbusSensorEntityDescription(
+    Hf6000sxModbusSensorEntityDescription(
         name = "Lithium Battery Protocol",
         key = "battery_protocol",
         register = 106,
-        scale = { 1: "L01 - Growatt RS485",
+        scale = { 0: "BMS Disabled",
+                  1: "L01 - Growatt RS485",
                   2: "L02 - Pylontech RS485",
                   4: "L04 - Extented RS485",
                   51: "L51 - Growatt CAN",
                   52: "L52 - Pylontech CAN", },
 #        entity_registry_enabled_default = False,
+        allowedtypes = PRM | LI,
         entity_category = EntityCategory.DIAGNOSTIC,
         icon = "mdi:protocol",
     ),
-    Lf3000sModbusSensorEntityDescription(
+    Hf6000sxModbusSensorEntityDescription(
         name = "AC Input Mode",
         key = "ac_input_mode",
         register = 8,
         scale = { 0: "APL - 90-280 VAC",
-                  1: "UPS - 170-280 VAC", },
+                  1: "UPS - 170-280 VAC", 
+                  2: "GEN - Generator", },
 #        entity_registry_enabled_default = False,
         entity_category = EntityCategory.DIAGNOSTIC,
         icon = "mdi:current-ac",
     ),
-    Lf3000sModbusSensorEntityDescription(
+    Hf6000sxModbusSensorEntityDescription(
         name = "AC Output Status",
         key = "ac_output_status",
         register = 0,
@@ -493,7 +508,7 @@ SENSOR_TYPES: list[Lf3000sModbusSensorEntityDescription] = [
         entity_category = EntityCategory.DIAGNOSTIC,
         icon = "mdi:power",
     ),
-    Lf3000sModbusSensorEntityDescription(
+    Hf6000sxModbusSensorEntityDescription(
         name = "AC Output Priority",
         key = "ac_output_priority",
         register = 1,
@@ -505,7 +520,7 @@ SENSOR_TYPES: list[Lf3000sModbusSensorEntityDescription] = [
         entity_category = EntityCategory.DIAGNOSTIC,
         icon = "mdi:priority-high",
     ),
-    Lf3000sModbusSensorEntityDescription(
+    Hf6000sxModbusSensorEntityDescription(
         name = "Charge Source Priority",
         key = "charge_source_priority",
         register = 2,
@@ -516,7 +531,7 @@ SENSOR_TYPES: list[Lf3000sModbusSensorEntityDescription] = [
         entity_category = EntityCategory.DIAGNOSTIC,
         icon = "mdi:priority-high",
     ),
-    Lf3000sModbusSensorEntityDescription(
+    Hf6000sxModbusSensorEntityDescription(
         name = "AC Output Voltage",
         key = "ac_output_voltage",
         register = 18,
@@ -528,7 +543,7 @@ SENSOR_TYPES: list[Lf3000sModbusSensorEntityDescription] = [
         entity_category = EntityCategory.DIAGNOSTIC,
         icon = "mdi:flash-triangle-outline",
     ),
-    Lf3000sModbusSensorEntityDescription(
+    Hf6000sxModbusSensorEntityDescription(
         name = "AC Output Frequency",
         key = "ac_output_frequency",
         register = 19,
@@ -538,7 +553,7 @@ SENSOR_TYPES: list[Lf3000sModbusSensorEntityDescription] = [
         entity_category = EntityCategory.DIAGNOSTIC,
         icon = "mdi:sine-wave",
     ),
-    Lf3000sModbusSensorEntityDescription(
+    Hf6000sxModbusSensorEntityDescription(
         name = "Overload Restart",
         key = "overload_restart",
         register = 20,
@@ -549,7 +564,7 @@ SENSOR_TYPES: list[Lf3000sModbusSensorEntityDescription] = [
         entity_category = EntityCategory.DIAGNOSTIC,
         icon = "mdi:stack-overflow",
     ),
-    Lf3000sModbusSensorEntityDescription(
+    Hf6000sxModbusSensorEntityDescription(
         name = "Overtemperature Restart",
         key = "overtemperature_restart",
         register = 21,
@@ -559,7 +574,7 @@ SENSOR_TYPES: list[Lf3000sModbusSensorEntityDescription] = [
         entity_category = EntityCategory.DIAGNOSTIC,
         icon = "mdi:coolant-temperature",
     ),
-    Lf3000sModbusSensorEntityDescription(
+    Hf6000sxModbusSensorEntityDescription(
         name = "Buzzer Alarm",
         key = "buzzer_alarm",
         register = 22,
@@ -569,7 +584,17 @@ SENSOR_TYPES: list[Lf3000sModbusSensorEntityDescription] = [
         entity_category = EntityCategory.DIAGNOSTIC,
         icon = "mdi:alarm-bell",
     ),
-    Lf3000sModbusSensorEntityDescription(
+    Hf6000sxModbusSensorEntityDescription(
+        name = "System Alarm",
+        key = "system_alarm",
+        register = 107,
+        scale = { 0: "Disabled",
+                  1: "Enabled", },
+#        entity_registry_enabled_default = False,
+        entity_category = EntityCategory.DIAGNOSTIC,
+        icon = "mdi:alarm-bell",
+    ),
+    Hf6000sxModbusSensorEntityDescription(
         name = "Max Battery Charge Current",
         key = "battery_max_charge_current",
         entity_category = EntityCategory.DIAGNOSTIC,
@@ -579,7 +604,7 @@ SENSOR_TYPES: list[Lf3000sModbusSensorEntityDescription] = [
         scale = 1,
         icon = "mdi:current-dc",
     ),
-    Lf3000sModbusSensorEntityDescription(
+    Hf6000sxModbusSensorEntityDescription(
         name = "Bulk Charge Voltage",
         key = "bulk_charge_voltage",
         entity_category = EntityCategory.DIAGNOSTIC,
@@ -590,7 +615,7 @@ SENSOR_TYPES: list[Lf3000sModbusSensorEntityDescription] = [
         rounding = 1,
         icon = "mdi:flash-triangle",
     ),
-    Lf3000sModbusSensorEntityDescription(
+    Hf6000sxModbusSensorEntityDescription(
         name = "Float Charge Voltage",
         key = "float_charge_voltage",
         entity_category = EntityCategory.DIAGNOSTIC,
@@ -601,30 +626,30 @@ SENSOR_TYPES: list[Lf3000sModbusSensorEntityDescription] = [
         rounding = 1,
         icon = "mdi:flash-triangle",
     ),
-    Lf3000sModbusSensorEntityDescription(
+    Hf6000sxModbusSensorEntityDescription(
         name = "Battery Voltage to Utility",
-        key = "battery_voltage_utility",
+        key = "battery_volper_utility",
         entity_category = EntityCategory.DIAGNOSTIC,
         native_unit_of_measurement = UnitOfElectricPotential.VOLT,
         device_class = SensorDeviceClass.VOLTAGE,
         register = 37,
         scale = 0.1,
         rounding = 1,
-        allowedtypes = PRM,
+        allowedtypes = PRM | AGM,
         icon = "mdi:flash-triangle",
     ),
-    Lf3000sModbusSensorEntityDescription(
+    Hf6000sxModbusSensorEntityDescription(
         name = "Battery Percent to Utility",
-        key = "battery_percent_utility",
+        key = "battery_volper_utility",
         entity_category = EntityCategory.DIAGNOSTIC,
         native_unit_of_measurement = PERCENTAGE,
         register = 37,
         scale = 0.1,
         rounding = 1,
-        allowedtypes = PRM | SCN,
+        allowedtypes = PRM | LI,
         icon = "mdi:flash-triangle",
     ),
-    Lf3000sModbusSensorEntityDescription(
+    Hf6000sxModbusSensorEntityDescription(
         name = "Max AC Charge Current",
         key = "ac_max_charge_current",
         entity_category = EntityCategory.DIAGNOSTIC,
@@ -634,53 +659,53 @@ SENSOR_TYPES: list[Lf3000sModbusSensorEntityDescription] = [
         scale = 1,
         icon = "mdi:current-dc",
     ),
-    Lf3000sModbusSensorEntityDescription(
+    Hf6000sxModbusSensorEntityDescription(
         name = "Battery CUTOFF Voltage",
-        key = "battery_cutoff_voltage",
+        key = "battery_cutoff_volper",
         entity_category = EntityCategory.DIAGNOSTIC,
         native_unit_of_measurement = UnitOfElectricPotential.VOLT,
         device_class = SensorDeviceClass.VOLTAGE,
         register = 82,
         scale = 0.1,
         rounding = 1,
-        allowedtypes = PRM,
+        allowedtypes = PRM | AGM,
         icon = "mdi:flash-triangle",
     ),
-    Lf3000sModbusSensorEntityDescription(
+    Hf6000sxModbusSensorEntityDescription(
         name = "Battery CUTOFF Percent",
-        key = "battery_cutoff_percent",
+        key = "battery_cutoff_volper",
         entity_category = EntityCategory.DIAGNOSTIC,
         native_unit_of_measurement = PERCENTAGE,
         register = 82,
         scale = 0.1,
         rounding = 1,
-        allowedtypes = PRM | SCN,
+        allowedtypes = PRM | LI,
         icon = "mdi:flash-triangle",
     ),
-    Lf3000sModbusSensorEntityDescription(
+    Hf6000sxModbusSensorEntityDescription(
         name = "Battery Recovery Voltage",
-        key = "battery_recovery_voltage",
+        key = "battery_recovery_volper",
         entity_category = EntityCategory.DIAGNOSTIC,
         native_unit_of_measurement = UnitOfElectricPotential.VOLT,
         device_class = SensorDeviceClass.VOLTAGE,
         register = 95,
         scale = 0.1,
         rounding = 1,
-        allowedtypes = PRM,
+        allowedtypes = PRM | AGM,
         icon = "mdi:flash-triangle",
     ),
-    Lf3000sModbusSensorEntityDescription(
+    Hf6000sxModbusSensorEntityDescription(
         name = "Battery Recovery Percent",
-        key = "battery_recovery_percent",
+        key = "battery_recovery_volper",
         entity_category = EntityCategory.DIAGNOSTIC,
         native_unit_of_measurement = PERCENTAGE,
         register = 95,
         scale = 0.1,
         rounding = 1,
-        allowedtypes = PRM | SCN,
+        allowedtypes = PRM | LI,
         icon = "mdi:flash-triangle",
     ),
-    Lf3000sModbusSensorEntityDescription(
+    Hf6000sxModbusSensorEntityDescription(
         name = "Backlight State",
         key = "backlight_state",
         register = 104,
@@ -693,8 +718,66 @@ SENSOR_TYPES: list[Lf3000sModbusSensorEntityDescription] = [
 #####
 ## INPUT REGISTERS
 #####
+    Hf6000sxModbusSensorEntityDescription(
+        name = "Warning Status",
+        key = "warning_status",
+        register = 41,
+        scale = { 0: "No Warnings",
+                  1: "Fan lock warning (01)",
+                  2: "Over charge (03)",
+                  4: "Battery voltage low (04)",
+                  8: "Over load (07",
+                  16: "Op power derating (10)",
+                  32: "Solar stop due to bat low (12)",
+                  64: "Solar stop due to Pv high (13)",
+                  128: "solar stop due to over load (14)",
+                  256: "Grid different(15)",
+                  512: "Grid phase error(16)",
+                  1024: "Op phase loss(17)",
+                  2048: "Over temprature(02",
+                  4096: "MPPT-Buck current over(18)",
+                  8192: "Battery disconnected(19)",
+                  16384: "BMS com error(20)",
+                  32768: "Pv power insufficient(21)", },
+#        entity_registry_enabled_default = False,
+        entity_category = EntityCategory.DIAGNOSTIC,
+        register_type = REG_INPUT,
+        icon = "mdi:alert-rhombus",
+    ),
 
-    Lf3000sModbusSensorEntityDescription(
+    Hf6000sxModbusSensorEntityDescription(
+        name = "Error Status",
+        key = "error_status",
+        register = 40,
+        scale = { 0: "No Errors",
+                  1: "Cooling Fan Locked",
+                  2: "Over Temperature",
+                  3: "Batery Voltage High",
+                  4: "Batery Voltage Low",
+                  5: "Output Short Circuit",
+                  6: "Output Voltage High",
+                  7: "Inverter Overloaded",
+                  8: "Bus voltage high",
+                  9: "Bus start fail",
+                  11: "Main relay fail",
+                  51: "Over Current",
+                  52: "Bus voltage low",
+                  53: "inverter softstart fai",
+                  56: "IGBT Over Current",
+                  58: "Output Voltage Low",
+                  60: "Negtive Power",
+                  61: "MPPT String Voltage High",
+                  62: "SCI com error",
+                  80: "CAN Communication Fault",
+                  81: "Host Loss", },
+#        entity_registry_enabled_default = False,
+        entity_category = EntityCategory.DIAGNOSTIC,
+        register_type = REG_INPUT,
+        icon = "mdi:water-boiler-alert",
+    ),
+
+
+    Hf6000sxModbusSensorEntityDescription(
         name = "System Status",
         key = "system_status",
         register = 0,
@@ -714,9 +797,9 @@ SENSOR_TYPES: list[Lf3000sModbusSensorEntityDescription] = [
 #        entity_registry_enabled_default = False,
         entity_category = EntityCategory.DIAGNOSTIC,
         register_type = REG_INPUT,
-        icon = "mdi:ev-station",
+        icon = "mdi:water-boiler",
     ),
-    Lf3000sModbusSensorEntityDescription(
+    Hf6000sxModbusSensorEntityDescription(
         name = "MPPT Voltage",
         key = "mppt_voltage",
         native_unit_of_measurement = UnitOfElectricPotential.VOLT,
@@ -726,7 +809,7 @@ SENSOR_TYPES: list[Lf3000sModbusSensorEntityDescription] = [
         scale = 0.1,
         rounding = 1,
     ),
-    Lf3000sModbusSensorEntityDescription(
+    Hf6000sxModbusSensorEntityDescription(
         name = "MPPT 1 Power",
         key = "mppt_power_1",
         native_unit_of_measurement = UnitOfPower.WATT,
@@ -741,7 +824,7 @@ SENSOR_TYPES: list[Lf3000sModbusSensorEntityDescription] = [
         icon = "mdi:solar-power-variant",
     ),
 
-    Lf3000sModbusSensorEntityDescription(
+    Hf6000sxModbusSensorEntityDescription(
         name = "MPPT 2 Power",
         key = "mppt_power_2",
         native_unit_of_measurement = UnitOfPower.WATT,
@@ -755,7 +838,7 @@ SENSOR_TYPES: list[Lf3000sModbusSensorEntityDescription] = [
         entity_category = EntityCategory.DIAGNOSTIC,
         icon = "mdi:solar-power-variant",
     ),
-    Lf3000sModbusSensorEntityDescription(
+    Hf6000sxModbusSensorEntityDescription(
         name = "MPPT 1 Current",
         key = "mppt_current_1",
         native_unit_of_measurement = UnitOfElectricCurrent.AMPERE,
@@ -767,7 +850,7 @@ SENSOR_TYPES: list[Lf3000sModbusSensorEntityDescription] = [
         entity_category = EntityCategory.DIAGNOSTIC,
         icon = "mdi:current-dc",
     ),
-    Lf3000sModbusSensorEntityDescription(
+    Hf6000sxModbusSensorEntityDescription(
         name = "MPPT 2 Current",
         key = "mppt_current_2",
         native_unit_of_measurement = UnitOfElectricCurrent.AMPERE,
@@ -779,7 +862,7 @@ SENSOR_TYPES: list[Lf3000sModbusSensorEntityDescription] = [
         entity_category = EntityCategory.DIAGNOSTIC,
         icon = "mdi:current-dc",
     ),
-    Lf3000sModbusSensorEntityDescription(
+    Hf6000sxModbusSensorEntityDescription(
         name = "Output Power",
         key = "output_power",
         native_unit_of_measurement = UnitOfPower.WATT,
@@ -792,7 +875,7 @@ SENSOR_TYPES: list[Lf3000sModbusSensorEntityDescription] = [
         rounding = 1,
         icon = "mdi:current-ac",
     ),
-    Lf3000sModbusSensorEntityDescription(
+    Hf6000sxModbusSensorEntityDescription(
         name = "Output Apparent",
         key = "output_apparent",
         native_unit_of_measurement = UnitOfApparentPower.VOLT_AMPERE,
@@ -806,7 +889,7 @@ SENSOR_TYPES: list[Lf3000sModbusSensorEntityDescription] = [
         icon = "mdi:current-ac",
         entity_category = EntityCategory.DIAGNOSTIC,
     ),
-    Lf3000sModbusSensorEntityDescription(
+    Hf6000sxModbusSensorEntityDescription(
         name = "AC Charge Power",
         key = "ac_charge_power",
         native_unit_of_measurement = UnitOfPower.WATT,
@@ -819,7 +902,7 @@ SENSOR_TYPES: list[Lf3000sModbusSensorEntityDescription] = [
         rounding = 1,
         icon = "mdi:transmission-tower",
     ),
-    Lf3000sModbusSensorEntityDescription(
+    Hf6000sxModbusSensorEntityDescription(
         name = "AC Charge Apparent",
         key = "ac_charge_apparent",
         native_unit_of_measurement = UnitOfApparentPower.VOLT_AMPERE,
@@ -833,7 +916,7 @@ SENSOR_TYPES: list[Lf3000sModbusSensorEntityDescription] = [
         icon = "mdi:transmission-tower",
         entity_category = EntityCategory.DIAGNOSTIC,
     ),
-    Lf3000sModbusSensorEntityDescription(
+    Hf6000sxModbusSensorEntityDescription(
         name = "Battery Voltage",
         key = "battery_voltage",
         native_unit_of_measurement = UnitOfElectricPotential.VOLT,
@@ -844,17 +927,17 @@ SENSOR_TYPES: list[Lf3000sModbusSensorEntityDescription] = [
         rounding = 2,
         icon = "mdi:car-battery",
     ),
-    Lf3000sModbusSensorEntityDescription(
+    Hf6000sxModbusSensorEntityDescription(
         name = "Battery SOC",
         key = "battery_soc",
         native_unit_of_measurement = PERCENTAGE,
         device_class = SensorDeviceClass.BATTERY,
         register = 18,
         register_type = REG_INPUT,
-        allowedtypes = SCN,
+        allowedtypes = LI,
         icon = "mdi:battery-50",
     ),
-    Lf3000sModbusSensorEntityDescription(
+    Hf6000sxModbusSensorEntityDescription(
         name = "BUS Voltage",
         key = "bus_voltage",
         native_unit_of_measurement = UnitOfElectricPotential.VOLT,
@@ -865,7 +948,7 @@ SENSOR_TYPES: list[Lf3000sModbusSensorEntityDescription] = [
         rounding = 1,
         entity_category = EntityCategory.DIAGNOSTIC,
     ),
-    Lf3000sModbusSensorEntityDescription(
+    Hf6000sxModbusSensorEntityDescription(
         name = "AC Input Voltage",
         key = "ac_input_voltage",
         native_unit_of_measurement = UnitOfElectricPotential.VOLT,
@@ -876,7 +959,7 @@ SENSOR_TYPES: list[Lf3000sModbusSensorEntityDescription] = [
         rounding = 1,
         icon = "mdi:transmission-tower-import",
     ),
-    Lf3000sModbusSensorEntityDescription(
+    Hf6000sxModbusSensorEntityDescription(
         name = "AC Input Frequency",
         key = "ac_input_frequency",
         native_unit_of_measurement = UnitOfFrequency.HERTZ,
@@ -887,7 +970,7 @@ SENSOR_TYPES: list[Lf3000sModbusSensorEntityDescription] = [
         rounding = 2,
         icon = "mdi:transmission-tower-import",
     ),
-    Lf3000sModbusSensorEntityDescription(
+    Hf6000sxModbusSensorEntityDescription(
         name = "Output Voltage",
         key = "output_voltage",
         native_unit_of_measurement = UnitOfElectricPotential.VOLT,
@@ -898,7 +981,7 @@ SENSOR_TYPES: list[Lf3000sModbusSensorEntityDescription] = [
         rounding = 1,
         icon = "mdi:current-ac",
     ),
-    Lf3000sModbusSensorEntityDescription(
+    Hf6000sxModbusSensorEntityDescription(
         name = "Output Frequency",
         key = "output_frequency",
         native_unit_of_measurement = UnitOfFrequency.HERTZ,
@@ -909,7 +992,7 @@ SENSOR_TYPES: list[Lf3000sModbusSensorEntityDescription] = [
         rounding = 2,
         icon = "mdi:current-ac",
     ),
-    Lf3000sModbusSensorEntityDescription(
+    Hf6000sxModbusSensorEntityDescription(
         name = "Inverter Temperature",
         key = "inverter_temperature",
         native_unit_of_measurement = UnitOfTemperature.CELSIUS,
@@ -921,7 +1004,7 @@ SENSOR_TYPES: list[Lf3000sModbusSensorEntityDescription] = [
         rounding = 1,
         icon = "mdi:thermometer-low",
     ),
-    Lf3000sModbusSensorEntityDescription(
+    Hf6000sxModbusSensorEntityDescription(
         name = "DC/DC Converter Temperature",
         key = "dc_converter_temperature",
         native_unit_of_measurement = UnitOfTemperature.CELSIUS,
@@ -933,7 +1016,7 @@ SENSOR_TYPES: list[Lf3000sModbusSensorEntityDescription] = [
         rounding = 1,
         icon = "mdi:thermometer-low",
     ),
-    Lf3000sModbusSensorEntityDescription(
+    Hf6000sxModbusSensorEntityDescription(
         name = "Inverter Load",
         key = "inverter_load",
         native_unit_of_measurement = PERCENTAGE,
@@ -943,7 +1026,7 @@ SENSOR_TYPES: list[Lf3000sModbusSensorEntityDescription] = [
         rounding = 1,
         icon = "mdi:percent-box",
     ),
-    Lf3000sModbusSensorEntityDescription(
+    Hf6000sxModbusSensorEntityDescription(
         name = "Output Current",
         key = "output_current",
         native_unit_of_measurement = UnitOfElectricCurrent.AMPERE,
@@ -954,7 +1037,7 @@ SENSOR_TYPES: list[Lf3000sModbusSensorEntityDescription] = [
         rounding = 1,
         icon = "mdi:current-ac",
     ),
-#    Lf3000sModbusSensorEntityDescription(
+#    Hf6000sxModbusSensorEntityDescription(
 #        name = "AC Charge Current",
 #        key = "ac_charge_current",
 #        native_unit_of_measurement = UnitOfElectricCurrent.AMPERE,
@@ -965,7 +1048,7 @@ SENSOR_TYPES: list[Lf3000sModbusSensorEntityDescription] = [
 #        rounding = 1,
 #        icon = "mdi:current-dc",
 #    ),
-    Lf3000sModbusSensorEntityDescription(
+    Hf6000sxModbusSensorEntityDescription(
         name = "AC Input Power",
         key = "ac_input_power",
         native_unit_of_measurement = UnitOfPower.WATT,
@@ -978,7 +1061,7 @@ SENSOR_TYPES: list[Lf3000sModbusSensorEntityDescription] = [
         rounding = 1,
         icon = "mdi:transmission-tower",
     ),
-    Lf3000sModbusSensorEntityDescription(
+    Hf6000sxModbusSensorEntityDescription(
         name = "AC Input Apparent",
         key = "ac_input_apparent",
         native_unit_of_measurement = UnitOfApparentPower.VOLT_AMPERE,
@@ -992,7 +1075,7 @@ SENSOR_TYPES: list[Lf3000sModbusSensorEntityDescription] = [
         icon = "mdi:transmission-tower",
         entity_category = EntityCategory.DIAGNOSTIC,
     ),
-    Lf3000sModbusSensorEntityDescription(
+    Hf6000sxModbusSensorEntityDescription(
         name = "MPPT Energy Today",
         key = "mppt_energy_today",
         native_unit_of_measurement = UnitOfEnergy.KILO_WATT_HOUR,
@@ -1005,7 +1088,7 @@ SENSOR_TYPES: list[Lf3000sModbusSensorEntityDescription] = [
         scale = 0.1,
         rounding = 1,
     ),
-    Lf3000sModbusSensorEntityDescription(
+    Hf6000sxModbusSensorEntityDescription(
         name = "MPPT Energy Total",
         key = "mppt_energy_total",
         native_unit_of_measurement = UnitOfEnergy.KILO_WATT_HOUR,
@@ -1018,7 +1101,7 @@ SENSOR_TYPES: list[Lf3000sModbusSensorEntityDescription] = [
         scale = 0.1,
         rounding = 1,
     ),
-    Lf3000sModbusSensorEntityDescription(
+    Hf6000sxModbusSensorEntityDescription(
         name = "AC Charge Energy Today",
         key = "ac_charge_energy_today",
         native_unit_of_measurement = UnitOfEnergy.KILO_WATT_HOUR,
@@ -1031,7 +1114,7 @@ SENSOR_TYPES: list[Lf3000sModbusSensorEntityDescription] = [
         scale = 0.1,
         rounding = 1,
     ),
-    Lf3000sModbusSensorEntityDescription(
+    Hf6000sxModbusSensorEntityDescription(
         name = "AC Charge Energy Total",
         key = "ac_charge_energy_total",
         native_unit_of_measurement = UnitOfEnergy.KILO_WATT_HOUR,
@@ -1044,7 +1127,7 @@ SENSOR_TYPES: list[Lf3000sModbusSensorEntityDescription] = [
         scale = 0.1,
         rounding = 1,
     ),
-    Lf3000sModbusSensorEntityDescription(
+    Hf6000sxModbusSensorEntityDescription(
         name = "Battery Discharge Energy Today",
         key = "battery_discharge_energy_today",
         native_unit_of_measurement = UnitOfEnergy.KILO_WATT_HOUR,
@@ -1057,7 +1140,7 @@ SENSOR_TYPES: list[Lf3000sModbusSensorEntityDescription] = [
         scale = 0.1,
         rounding = 1,
     ),
-    Lf3000sModbusSensorEntityDescription(
+    Hf6000sxModbusSensorEntityDescription(
         name = "Battery Discharge Energy Total",
         key = "battery_discharge_energy_total",
         native_unit_of_measurement = UnitOfEnergy.KILO_WATT_HOUR,
@@ -1070,7 +1153,7 @@ SENSOR_TYPES: list[Lf3000sModbusSensorEntityDescription] = [
         scale = 0.1,
         rounding = 1,
     ),
-    Lf3000sModbusSensorEntityDescription(
+    Hf6000sxModbusSensorEntityDescription(
         name = "AC Charge Current",
         key = "ac_charge_current",
         native_unit_of_measurement = UnitOfElectricCurrent.AMPERE,
@@ -1081,7 +1164,7 @@ SENSOR_TYPES: list[Lf3000sModbusSensorEntityDescription] = [
         rounding = 1,
         icon = "mdi:current-dc",
     ),
-    Lf3000sModbusSensorEntityDescription(
+    Hf6000sxModbusSensorEntityDescription(
         name = "Battery Power",
         key = "battery_power",
         native_unit_of_measurement = UnitOfPower.WATT,
@@ -1094,27 +1177,25 @@ SENSOR_TYPES: list[Lf3000sModbusSensorEntityDescription] = [
         rounding = 1,
         icon = "mdi:battery-charging-40",
     ),
-#    Lf3000sModbusSensorEntityDescription(
-#        name = "MPPT Fan Speed",
-#        key = "mppt_fan_speed",
-#        native_unit_of_measurement = PERCENTAGE,
-#        device_class = SensorDeviceClass.BATTERY,
-#        register = 81,
-#        register_type = REG_INPUT,
-#        icon = "mdi:fan",
-#        entity_category = EntityCategory.DIAGNOSTIC,
-#    ),
-#    Lf3000sModbusSensorEntityDescription(
-#        name = "Inverter Fan Speed",
-#        key = "inverter_fan_speed",
-#        native_unit_of_measurement = PERCENTAGE,
-#        device_class = SensorDeviceClass.BATTERY,
-#        register = 82,
-#        register_type = REG_INPUT,
-#        icon = "mdi:fan",
-#        entity_category = EntityCategory.DIAGNOSTIC,
-#    ),
-    Lf3000sModbusSensorEntityDescription(
+    Hf6000sxModbusSensorEntityDescription(
+        name = "MPPT Fan Speed",
+        key = "mppt_fan_speed",
+        native_unit_of_measurement = PERCENTAGE,
+        register = 81,
+        register_type = REG_INPUT,
+        icon = "mdi:fan",
+        entity_category = EntityCategory.DIAGNOSTIC,
+    ),
+    Hf6000sxModbusSensorEntityDescription(
+        name = "Inverter Fan Speed",
+        key = "inverter_fan_speed",
+        native_unit_of_measurement = PERCENTAGE,
+        register = 82,
+        register_type = REG_INPUT,
+        icon = "mdi:fan",
+        entity_category = EntityCategory.DIAGNOSTIC,
+    ),
+    Hf6000sxModbusSensorEntityDescription(
         name = "Battery Charge Current",
         key = "Battery_charge_current",
         native_unit_of_measurement = UnitOfElectricCurrent.AMPERE,
@@ -1125,10 +1206,21 @@ SENSOR_TYPES: list[Lf3000sModbusSensorEntityDescription] = [
         rounding = 1,
         icon = "mdi:current-dc",
     ),
+    Hf6000sxModbusSensorEntityDescription(
+        name = "Battery Discharge Current",
+        key = "Battery_discharge_current",
+        native_unit_of_measurement = UnitOfElectricCurrent.AMPERE,
+        device_class = SensorDeviceClass.CURRENT,
+        register = 84,
+        register_type = REG_INPUT,
+        scale = 0.1,
+        rounding = 1,
+        icon = "mdi:current-dc",
+    ),
 
 # ============================ CALCULATED MPPT DUE INV BUGS - MPPT SPLIT =================================================
 
-    Lf3000sModbusSensorEntityDescription(
+    Hf6000sxModbusSensorEntityDescription(
         name = "MPPT Power",
         key = "mppt_power",
         native_unit_of_measurement = UnitOfPower.WATT,
@@ -1137,7 +1229,7 @@ SENSOR_TYPES: list[Lf3000sModbusSensorEntityDescription] = [
         value_function= value_function_pv_calculated_power,
         icon = "mdi:solar-power-variant",
     ),
-    Lf3000sModbusSensorEntityDescription(
+    Hf6000sxModbusSensorEntityDescription(
         name = "MPPT Current",
         key = "mppt_current",
         native_unit_of_measurement = UnitOfElectricCurrent.AMPERE,
@@ -1152,7 +1244,7 @@ SENSOR_TYPES: list[Lf3000sModbusSensorEntityDescription] = [
 # ============================ plugin declaration =================================================
 
 @dataclass
-class lf3000s_plugin(plugin_base):
+class hf6000sx_plugin(plugin_base):
 
     def determineInverterType(self, hub, configdict):
         read_prm = configdict.get(CONF_READ_PRM, DEFAULT_READ_PRM)
@@ -1174,8 +1266,8 @@ class lf3000s_plugin(plugin_base):
         return prmmatch and scnmatch
 
 
-plugin_instance = lf3000s_plugin(
-    plugin_name = 'lf3000s', 
+plugin_instance = hf6000sx_plugin(
+    plugin_name = 'hf6000sx', 
     SENSOR_TYPES = SENSOR_TYPES,
     NUMBER_TYPES = NUMBER_TYPES,
     BUTTON_TYPES = BUTTON_TYPES,

@@ -7,8 +7,8 @@
           "name": "The prefix to be used for your inverter sensors",
           "read_modbus_addr": "The modbus address of the Inverter",
           "interface" : "Interface",
-          "read_prm": "Single inverter OR Primary in 3-Phase operation",
-          "read_scn": "Lithium Battery with connected BMS",
+          "read_prm": "Primary / Master or Secondary / Slave Inverter",
+          "read_scn": "Lithium Battery with BMS or other types",
           "plugin": "Select Inverter Type",
           "scan_interval": "The polling frequency of the modbus registers in seconds"
         }
@@ -46,8 +46,8 @@
           "name": "The prefix to be used for your inverter sensors",
           "read_modbus_addr": "The modbus address of the Inverter",
           "interface" : "Interface",
-          "read_prm": "Single inverter OR Primary in 3-Phase operation",
-          "read_scn": "Lithium Battery with connected BMS",
+          "read_prm": "Primary / Master or Secondary / Slave Inverter",
+          "read_scn": "Lithium Battery with BMS or other types",
           "plugin": "Select Inverter Type",
           "scan_interval": "The polling frequency of the modbus registers in seconds"
         }

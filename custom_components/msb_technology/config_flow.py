@@ -72,14 +72,24 @@ INTERFACES = [
     selector.SelectOptionDict(value="serial", label="Serial"),    
 ]
 
+PRIMARIES = [
+    selector.SelectOptionDict(value="PRM",    label="Primary / Master Inverter"),
+    selector.SelectOptionDict(value="SCN",    label="Secondary / Slave Inverter"),    
+]
+
+SECONDARIES = [
+    selector.SelectOptionDict(value="LI",    label="Lithium Battery with BMS"),
+    selector.SelectOptionDict(value="AGM", label="AGM/FLOOD/LI Without BMS"),    
+]
+
 CONFIG_SCHEMA = vol.Schema( {
         vol.Optional(CONF_NAME, default=DEFAULT_NAME): str,
         vol.Required(CONF_INTERFACE, default="tcp"): selector.SelectSelector(selector.SelectSelectorConfig(options=INTERFACES), ),
         vol.Required(CONF_MODBUS_ADDR, default=DEFAULT_MODBUS_ADDR): int,
         vol.Required(CONF_PLUGIN, default=DEFAULT_PLUGIN): selector.SelectSelector(selector.SelectSelectorConfig(options=PLUGINS), ),
         vol.Optional(CONF_SCAN_INTERVAL, default=DEFAULT_SCAN_INTERVAL): int,
-        vol.Optional(CONF_READ_PRM, default=DEFAULT_READ_PRM): bool,
-        vol.Optional(CONF_READ_SCN, default=DEFAULT_READ_SCN): bool,
+        vol.Optional(CONF_READ_PRM, default="PRM"): selector.SelectSelector(selector.SelectSelectorConfig(options=PRIMARIES), ),
+        vol.Optional(CONF_READ_SCN, default="LI"): selector.SelectSelector(selector.SelectSelectorConfig(options=SECONDARIES), ),
     } )
 
 OPTION_SCHEMA = vol.Schema( {
@@ -87,8 +97,8 @@ OPTION_SCHEMA = vol.Schema( {
         vol.Required(CONF_MODBUS_ADDR, default=DEFAULT_MODBUS_ADDR): int,
         vol.Required(CONF_PLUGIN, default=DEFAULT_PLUGIN): selector.SelectSelector(selector.SelectSelectorConfig(options=PLUGINS), ),
         vol.Optional(CONF_SCAN_INTERVAL, default=DEFAULT_SCAN_INTERVAL): int,
-        vol.Optional(CONF_READ_PRM, default=DEFAULT_READ_PRM): bool,
-        vol.Optional(CONF_READ_SCN, default=DEFAULT_READ_SCN): bool,
+        vol.Optional(CONF_READ_PRM, default="PRM"): selector.SelectSelector(selector.SelectSelectorConfig(options=PRIMARIES), ),
+        vol.Optional(CONF_READ_SCN, default="LI"): selector.SelectSelector(selector.SelectSelectorConfig(options=SECONDARIES), ),
     } )
 
 
