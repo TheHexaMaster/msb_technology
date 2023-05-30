@@ -696,6 +696,7 @@ SENSOR_TYPES: list[Lf3000sModbusSensorEntityDescription] = [
     Lf3000sModbusSensorEntityDescription(
         name = "BMS Battery SOC",
         key = "bms_battery_soc",
+        entity_category = EntityCategory.DIAGNOSTIC,
         native_unit_of_measurement = PERCENTAGE,
         device_class = SensorDeviceClass.BATTERY,
         register = 553,
@@ -733,6 +734,7 @@ SENSOR_TYPES: list[Lf3000sModbusSensorEntityDescription] = [
     Lf3000sModbusSensorEntityDescription(
         name = "BMS Battery Temperature",
         key = "bms_battery_temperature",
+        entity_category = EntityCategory.DIAGNOSTIC,
         native_unit_of_measurement = UnitOfTemperature.CELSIUS,
         device_class = SensorDeviceClass.TEMPERATURE,
         state_class = SensorStateClass.MEASUREMENT,
@@ -765,6 +767,7 @@ SENSOR_TYPES: list[Lf3000sModbusSensorEntityDescription] = [
     Lf3000sModbusSensorEntityDescription(
         name = "BMS Battery SOH",
         key = "bms_battery_soh",
+        entity_category = EntityCategory.DIAGNOSTIC,
         native_unit_of_measurement = PERCENTAGE,
         register = 563,
         register_type = REG_INPUT,
