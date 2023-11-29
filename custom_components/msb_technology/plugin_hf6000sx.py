@@ -780,7 +780,7 @@ SENSOR_TYPES: list[Hf6000sxModbusSensorEntityDescription] = [
         name = "BMS Battery Cycles",
         key = "bms_battery_cycles",
         entity_category = EntityCategory.DIAGNOSTIC,
-        register = 761,
+        register = 699,
         allowedtypes = PRM | LI,
         icon = "mdi:counter",
     ),
