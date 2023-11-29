@@ -118,7 +118,6 @@ BUTTON_TYPES = [
         write_method = WRITE_MULTI_MODBUS,
         icon = "mdi:home-clock",
         value_function = value_function_sync_rtc_ymd_fullyear,
-        allowedtypes = PRM,
     ),
     Hf5000sModbusButtonEntityDescription( 
         name = "Reset USER Info",
@@ -457,6 +456,7 @@ SENSOR_TYPES: list[Hf5000sModbusSensorEntityDescription] = [
         scale = value_function_rtc_ymd_fullyear,
         entity_category = EntityCategory.DIAGNOSTIC,
         icon = "mdi:clock",
+        allowedtypes = PRM,
     ),
     Hf5000sModbusSensorEntityDescription(
         name = "Battery Type",
@@ -469,6 +469,7 @@ SENSOR_TYPES: list[Hf5000sModbusSensorEntityDescription] = [
                   4: "User Defined VAR.2", },
         entity_category = EntityCategory.DIAGNOSTIC,
         icon = "mdi:battery",
+        allowedtypes = PRM,
     ),
     Hf5000sModbusSensorEntityDescription(
         name = "Lithium Battery Protocol",
@@ -495,6 +496,7 @@ SENSOR_TYPES: list[Hf5000sModbusSensorEntityDescription] = [
 #        entity_registry_enabled_default = False,
         entity_category = EntityCategory.DIAGNOSTIC,
         icon = "mdi:current-ac",
+        allowedtypes = PRM,
     ),
     Hf5000sModbusSensorEntityDescription(
         name = "AC Output Status",
@@ -517,6 +519,7 @@ SENSOR_TYPES: list[Hf5000sModbusSensorEntityDescription] = [
 #        entity_registry_enabled_default = False,
         entity_category = EntityCategory.DIAGNOSTIC,
         icon = "mdi:priority-high",
+        allowedtypes = PRM,
     ),
     Hf5000sModbusSensorEntityDescription(
         name = "Charge Source Priority",
@@ -528,6 +531,7 @@ SENSOR_TYPES: list[Hf5000sModbusSensorEntityDescription] = [
 #        entity_registry_enabled_default = False,
         entity_category = EntityCategory.DIAGNOSTIC,
         icon = "mdi:priority-high",
+        allowedtypes = PRM,
     ),
     Hf5000sModbusSensorEntityDescription(
         name = "AC Output Voltage",
@@ -540,6 +544,7 @@ SENSOR_TYPES: list[Hf5000sModbusSensorEntityDescription] = [
 #        entity_registry_enabled_default = False,
         entity_category = EntityCategory.DIAGNOSTIC,
         icon = "mdi:flash-triangle-outline",
+        allowedtypes = PRM,
     ),
     Hf5000sModbusSensorEntityDescription(
         name = "AC Output Frequency",
@@ -550,6 +555,7 @@ SENSOR_TYPES: list[Hf5000sModbusSensorEntityDescription] = [
 #        entity_registry_enabled_default = False,
         entity_category = EntityCategory.DIAGNOSTIC,
         icon = "mdi:sine-wave",
+        allowedtypes = PRM,
     ),
     Hf5000sModbusSensorEntityDescription(
         name = "Overload Restart",
@@ -612,6 +618,7 @@ SENSOR_TYPES: list[Hf5000sModbusSensorEntityDescription] = [
         scale = 0.1,
         rounding = 1,
         icon = "mdi:flash-triangle",
+        allowedtypes = PRM,
     ),
     Hf5000sModbusSensorEntityDescription(
         name = "Float Charge Voltage",
@@ -623,6 +630,7 @@ SENSOR_TYPES: list[Hf5000sModbusSensorEntityDescription] = [
         scale = 0.1,
         rounding = 1,
         icon = "mdi:flash-triangle",
+        allowedtypes = PRM,
     ),
     Hf5000sModbusSensorEntityDescription(
         name = "Battery Voltage to Utility",
