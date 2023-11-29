@@ -404,7 +404,6 @@ SELECT_TYPES = [
         option_dict = { 0: "Yes",
                         1: "No",
                         2: "Switch to UTI", },
-        allowedtypes = PRM,
         entity_category = EntityCategory.CONFIG,
     ),
     Hf5000rModbusSelectEntityDescription(
@@ -413,7 +412,6 @@ SELECT_TYPES = [
         register = 21,
         option_dict = { 0: "Yes",
                         1: "No", },
-        allowedtypes = PRM,
         entity_category = EntityCategory.CONFIG,
     ),
 
