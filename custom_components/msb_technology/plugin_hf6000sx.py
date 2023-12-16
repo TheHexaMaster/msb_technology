@@ -1526,11 +1526,14 @@ class hf6000sx_plugin(plugin_base):
     def determineInverterType(self, hub, configdict):
         read_prm = configdict.get(CONF_READ_PRM, DEFAULT_READ_PRM)
         read_scn = configdict.get(CONF_READ_SCN, DEFAULT_READ_SCN)
+        read_prt = configdict.get(CONF_READ_PRT, DEFAULT_READ_PRT)
         invertertype = 0
         if read_prm == "PRM": invertertype = invertertype | PRM
         if read_prm == "SCN": invertertype = invertertype | SCN
         if read_scn == "LI": invertertype = invertertype | LI
         if read_scn == "AGM": invertertype = invertertype | AGM
+        if read_scn == "RS485": invertertype = invertertype | RS485
+        if read_scn == "CANGR": invertertype = invertertype | CANGR
 
         return invertertype
 
@@ -1539,8 +1542,9 @@ class hf6000sx_plugin(plugin_base):
 
         prmmatch = ((inverterspec & entitymask & ALL_PRM_GROUP)  != 0) or (entitymask & ALL_PRM_GROUP  == 0)
         scnmatch = ((inverterspec & entitymask & ALL_SCN_GROUP)  != 0) or (entitymask & ALL_SCN_GROUP  == 0)
+        prtmatch = ((inverterspec & entitymask & ALL_PRT_GROUP)  != 0) or (entitymask & ALL_PRT_GROUP  == 0)
 
-        return prmmatch and scnmatch
+        return prmmatch and scnmatch and prtmatch
 
 
 plugin_instance = hf6000sx_plugin(
