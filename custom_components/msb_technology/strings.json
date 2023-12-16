@@ -9,6 +9,7 @@
           "interface" : "Interface",
           "read_prm": "Primary / Master or Secondary / Slave Inverter",
           "read_scn": "Lithium Battery with BMS or other types",
+          "read_prt": "Lithium Battery USED Protocol",
           "plugin": "Select Inverter Type",
           "scan_interval": "The polling frequency of the modbus registers in seconds"
         }
@@ -48,6 +49,7 @@
           "interface" : "Interface",
           "read_prm": "Primary / Master or Secondary / Slave Inverter",
           "read_scn": "Lithium Battery with BMS or other types",
+          "read_prt": "Lithium Battery USED Protocol",
           "plugin": "Select Inverter Type",
           "scan_interval": "The polling frequency of the modbus registers in seconds"
         }
