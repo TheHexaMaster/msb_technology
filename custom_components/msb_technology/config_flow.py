@@ -85,8 +85,8 @@ SECONDARIES = [
 ]
 
 PROTOCOLES = [
-    selector.SelectOptionDict(value="RS485",    label="Battery use L01 protocol for data readings"),
-    selector.SelectOptionDict(value="CANGR", 	label="Battery use L52 protocol for data readings"),    
+    selector.SelectOptionDict(value="RS485",    label="Battery use L01 - RS485 protocol for data readings"),
+    selector.SelectOptionDict(value="CANGR", 	label="Battery use L51 - Growatt CAN protocol for data readings"),    
 ]
 
 CONFIG_SCHEMA = vol.Schema( {
