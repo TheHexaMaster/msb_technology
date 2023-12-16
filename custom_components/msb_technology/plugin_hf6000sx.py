@@ -18,6 +18,10 @@ LI            = 0x0010 # Define the inverter LI Battery Usage (this will change 
 AGM           = 0x0020 # Define the inverter AGM/FLOOD/NON-BMS Battery Usage (this will change V to %)
 ALL_SCN_GROUP  = LI | AGM
 
+RS485            = 0x0100 # Define the RS485 protocol (L01) usage - different registers and dadatypes than CAN
+CANGR            = 0x0200 # Define the CAN Growatt protocol (L51) usage - different registers and datatypes and RS485
+ALL_PRT_GROUP  = RS485 | CANGR
+
 ALLDEFAULT = 0
 
 # ======================= end of bitmask handling code =============================================
