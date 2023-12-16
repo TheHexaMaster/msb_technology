@@ -745,6 +745,7 @@ SENSOR_TYPES: list[Hf6000sxModbusSensorEntityDescription] = [
         native_unit_of_measurement = PERCENTAGE,
         device_class = SensorDeviceClass.BATTERY,
         register = 1406,
+        register_type = REG_INPUT,
         allowedtypes = PRM | LI | CANGR,
         icon = "mdi:battery-50",
     ),
@@ -767,6 +768,7 @@ SENSOR_TYPES: list[Hf6000sxModbusSensorEntityDescription] = [
         native_unit_of_measurement = UnitOfElectricPotential.VOLT,
         device_class = SensorDeviceClass.VOLTAGE,
         register = 1402,
+        register_type = REG_INPUT,
         scale = 0.01,
         rounding = 2,
         allowedtypes = PRM | LI | CANGR,
@@ -792,6 +794,7 @@ SENSOR_TYPES: list[Hf6000sxModbusSensorEntityDescription] = [
         native_unit_of_measurement = UnitOfElectricCurrent.AMPERE,
         device_class = SensorDeviceClass.CURRENT,
         register = 1420,
+        register_type = REG_INPUT,
         unit = REGISTER_S16,
         scale = 0.1,
         rounding = 1,
@@ -819,6 +822,7 @@ SENSOR_TYPES: list[Hf6000sxModbusSensorEntityDescription] = [
         scale = 0.1,
         rounding = 1,
         register = 1421,
+        register_type = REG_INPUT,
         allowedtypes = PRM | LI | CANGR,
         icon = "mdi:thermometer-low",
     ),
@@ -832,6 +836,7 @@ SENSOR_TYPES: list[Hf6000sxModbusSensorEntityDescription] = [
         scale = 0.1,
         rounding = 1,
         register = 1257,
+        register_type = REG_INPUT,
         allowedtypes = PRM | LI | CANGR,
         icon = "mdi:thermometer-low",
     ),
@@ -854,6 +859,7 @@ SENSOR_TYPES: list[Hf6000sxModbusSensorEntityDescription] = [
         native_unit_of_measurement = UnitOfElectricCurrent.AMPERE,
         device_class = SensorDeviceClass.CURRENT,
         register = 1326,
+        register_type = REG_INPUT,
         scale = 0.01,
         rounding = 1,
         allowedtypes = PRM | LI | CANGR,
@@ -872,6 +878,7 @@ SENSOR_TYPES: list[Hf6000sxModbusSensorEntityDescription] = [
         key = "bms_battery_cycles",
         entity_category = EntityCategory.DIAGNOSTIC,
         register = 1416,
+        register_type = REG_INPUT,
         allowedtypes = PRM | LI | CANGR,
         icon = "mdi:counter",
     ),
@@ -1617,8 +1624,8 @@ class hf6000sx_plugin(plugin_base):
         if read_prm == "SCN": invertertype = invertertype | SCN
         if read_scn == "LI": invertertype = invertertype | LI
         if read_scn == "AGM": invertertype = invertertype | AGM
-        if read_scn == "RS485": invertertype = invertertype | RS485
-        if read_scn == "CANGR": invertertype = invertertype | CANGR
+        if read_prt == "RS485": invertertype = invertertype | RS485
+        if read_prt == "CANGR": invertertype = invertertype | CANGR
 
         return invertertype
 
