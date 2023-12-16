@@ -31,6 +31,7 @@ from .const import (
 	DOMAIN,
     CONF_READ_PRM,
     CONF_READ_SCN,
+    CONF_READ_PRT,
     CONF_INTERFACE,
     CONF_SERIAL_PORT,
     CONF_MODBUS_ADDR,
@@ -38,6 +39,7 @@ from .const import (
     CONF_PLUGIN,
     DEFAULT_READ_PRM,
     DEFAULT_READ_SCN,
+    DEFAULT_READ_PRT,
     DEFAULT_PLUGIN,
     PLUGIN_PATH,
     # PLUGIN_PATH_OLDSTYLE,
@@ -82,6 +84,11 @@ SECONDARIES = [
     selector.SelectOptionDict(value="AGM", label="AGM/FLOOD/LI Without BMS"),    
 ]
 
+PROTOCOLES = [
+    selector.SelectOptionDict(value="RS485",    label="Battery use L01 protocol for data readings"),
+    selector.SelectOptionDict(value="CANGR", 	label="Battery use L52 protocol for data readings"),    
+]
+
 CONFIG_SCHEMA = vol.Schema( {
         vol.Optional(CONF_NAME, default=DEFAULT_NAME): str,
         vol.Required(CONF_INTERFACE, default="tcp"): selector.SelectSelector(selector.SelectSelectorConfig(options=INTERFACES), ),
@@ -90,6 +97,7 @@ CONFIG_SCHEMA = vol.Schema( {
         vol.Optional(CONF_SCAN_INTERVAL, default=DEFAULT_SCAN_INTERVAL): int,
         vol.Optional(CONF_READ_PRM, default="PRM"): selector.SelectSelector(selector.SelectSelectorConfig(options=PRIMARIES), ),
         vol.Optional(CONF_READ_SCN, default="LI"): selector.SelectSelector(selector.SelectSelectorConfig(options=SECONDARIES), ),
+        vol.Optional(CONF_READ_PRT, default="RS485"): selector.SelectSelector(selector.SelectSelectorConfig(options=PROTOCOLES), ),
     } )
 
 OPTION_SCHEMA = vol.Schema( {
@@ -99,6 +107,7 @@ OPTION_SCHEMA = vol.Schema( {
         vol.Optional(CONF_SCAN_INTERVAL, default=DEFAULT_SCAN_INTERVAL): int,
         vol.Optional(CONF_READ_PRM, default="PRM"): selector.SelectSelector(selector.SelectSelectorConfig(options=PRIMARIES), ),
         vol.Optional(CONF_READ_SCN, default="LI"): selector.SelectSelector(selector.SelectSelectorConfig(options=SECONDARIES), ),
+        vol.Optional(CONF_READ_PRT, default="RS485"): selector.SelectSelector(selector.SelectSelectorConfig(options=PROTOCOLES), ),
     } )
 
 
