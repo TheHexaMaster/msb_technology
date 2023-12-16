@@ -1532,8 +1532,8 @@ class hf5000r_plugin(plugin_base):
         if read_prm == "SCN": invertertype = invertertype | SCN
         if read_scn == "LI": invertertype = invertertype | LI
         if read_scn == "AGM": invertertype = invertertype | AGM
-        if read_scn == "RS485": invertertype = invertertype | RS485
-        if read_scn == "CANGR": invertertype = invertertype | CANGR
+        if read_prt == "RS485": invertertype = invertertype | RS485
+        if read_prt == "CANGR": invertertype = invertertype | CANGR
 
         return invertertype
 
